@@ -56,7 +56,7 @@ python app.py
 
 ## Структура проекта
 ```
-your-repo-name/
+image_caption_app/
 │
 ├── app.py                  # Flask-приложение
 ├── student_epoch6.pt       # Вес модели (автоскачивание или вручную)
