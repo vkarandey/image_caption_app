@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Генерация подписи к изображению</title>
+    <style>
+        body {
+            font-family: "Segoe UI", sans-serif;
+            margin: 40px auto;
+            max-width: 600px;
+            text-align: center;
+            background-color: #f9f9f9;
+        }
+
+        h1 {
+            color: #2c3e50;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        label.upload-label {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: #3498db;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 14px 28px;
+            font-size: 16px;
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        button:hover, label.upload-label:hover {
+            opacity: 0.9;
+        }
+
+        img {
+            margin-top: 20px;
+            max-width: 100%;
+            border-radius: 10px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .caption {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #444;
+            background: #ecf0f1;
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Сервис генерации подписи к изображению</h1>
+    <p style="color: #555; font-size: 16px; max-width: 500px; margin: 0 auto;">
+        Загрузите изображение в формате JPEG или PNG. Рекомендуемый размер — не менее <strong>384×384 пикселей</strong>. Большие изображения будут автоматически уменьшены.
+    </p>
+
+    <form method="POST" enctype="multipart/form-data">
+        <label class="upload-label" for="imageInput">Выбрать изображение</label>
+        <input type="file" id="imageInput" name="image" accept="image/*" required onchange="previewImage(event)">
+        <br>
+        <button type="submit">Сгенерировать подпись</button>
+        <br>
+        <img id="preview" style="display:none;" />
+    </form>
+
+    {% if image_path %}
+        <h3>Загруженное изображение:</h3>
+        <img src="{{ image_path }}" alt="Загруженное изображение">
+    {% endif %}
+
+    {% if caption %}
+        <div class="caption">{{ caption }}</div>
+    {% endif %}
+
+    <script>
+        function previewImage(event) {
+            const preview = document.getElementById("preview");
+            const file = event.target.files[0];
+            if (file) {
+                preview.src = URL.createObjectURL(file);
+                preview.style.display = "block";
+            }
+        }
+    </script>
+    <footer style="text-align: center; margin-top: 50px; padding: 20px; color: #aaa; font-size: 14px;">
+        <hr style="border: none; border-top: 1px solid #333; margin-bottom: 15px; width: 80%;">
+        <p>
+          © 2025 | Создано с использованием <a href="https://huggingface.co/docs/transformers/model_doc/blip" target="_blank" style="color: #7ca7ff;">BLIP</a> и <a href="https://pytorch.org/" target="_blank" style="color: #7ca7ff;">PyTorch, </a>
+        </p>
+        <p>
+          Авторы: <strong>Виктория Карандей и Анна Тетерина</strong>
+        </p>
+      </footer>
+      
+</body>
+</html>
