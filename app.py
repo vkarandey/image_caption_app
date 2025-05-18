@@ -64,7 +64,7 @@ config = BlipConfig(
 
 def download_weights():
     url = "https://drive.google.com/uc?id=1w7hY_dpYc-QJ_qUzBkz-2uBqxnfS0lko" 
-    weights_path = "student_epoch6.pt"
+    weights_path = "student_epoch15.pt"
     if not os.path.exists(weights_path):
         print("Скачиваем веса модели...")
         gdown.download(url, weights_path, quiet=False)
@@ -74,7 +74,7 @@ def download_weights():
 download_weights()
 
 model = BlipForConditionalGeneration(config)
-model.load_state_dict(torch.load("student_epoch6.pt", map_location=device), strict=False)
+model.load_state_dict(torch.load("student_epoch15.pt", map_location=device), strict=False)
 model.to(device)
 model.eval()
 
@@ -104,4 +104,4 @@ def index():
 
 if __name__ == "__main__":
     print("Flask запускается...")
-    app.run(debug=True)
+    app.run(debug=True, port=8080)
